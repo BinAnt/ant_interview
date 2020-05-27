@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue key</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="item in lists" :key="item.id">{{item.id}} - {{item.name}}</li>
+        </ul>
+    </div>
+<script src="../../interview/node_modules/Vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            lists: [
+                {id: 1, name: 'zhangsan'},
+                {id: 2, name: 'lisi'},
+                {id: 3, name: 'wangwu'}
+            ],
+            blogTitle: 'hahhaha'
+        },
+        render(createElement){
+            //创建VNode
+            let node = createElement('h1', this.blogTitle)
+            console.log(node)
+            return node;
+            
+        },
+        updated(data) {
+            console.log('----', data);
+            
+        }
+    })
+</script>
+</body>
+</html>
