@@ -1,6 +1,6 @@
 ## JavaScript面试题
 
-第1题：['1','2','3'].map(parseInt) what & why?
+#### 第1题：['1','2','3'].map(parseInt) what & why?
 
 ~~~~text
 // 1. 首先是一个数组，调用一个数组的遍历方法map
@@ -23,3 +23,64 @@ parseInt('3', 2) 除了“0、1”外，其它数字都不是有效二进制数�
 
 ~~~~
 
+#### 第2题：什么是防抖和节流？有什么区别？怎么实现？
+
+> 防抖（debounce）：在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时。
+>
+> 生活总的事例：如果有人进入电梯（触发事件），电梯默认会在10秒后自动关闭，如果在这10秒内又有人进入，那么又触发了事件，重新计时
+
+~~~~js
+function debounce(fn, wait) {
+    let timer = null;
+    return function() {
+        var context = this;
+        var args = arguments
+        if(timer) {
+            clearTimeout(timer)
+            timer - null
+        }
+
+        timer = setTimeout(function(){
+            fn.apply(context, args)
+        }, wait)
+    }
+}
+
+var fn = function() {
+    console.log('1111');
+}
+
+setInterval(debounce(fn, 1000), 2000);
+~~~~
+
+
+
+> 节流（throttle）：规定的一个单位时间，在这个单位时间内，只能有一次触发事件的回调函数执行，如果在同一个单位时间内事件被多次触发，只有一次能生效。
+
+~~~~js
+function throttle(fn, gapTime) {
+    let _lastTime = null;
+    return function() {
+        let _nowTime = + new Date();
+        if(_nowTime - _lastTime > gapTime || !_lastTime) {
+            fn()
+            _lastTime = _nowTime
+        }
+    }
+}
+
+setInterval(throttle(fn, 1000), 2000);
+~~~~
+
+**总结**：
+
+* 防抖和节流都是都是防止一个时间事件频繁触发，但是他们处理的机制不一样
+* 函数防抖是某个时间段内只执行一次，函数节流是间隔多久执行一次
+
+**应用场景**
+
+* 防抖
+  * search输入搜索框关键字的时候，不是及时触发请求
+  * window的resize的时候，会不断触发这个事件，可以控制在某个时间内只执行一次
+* 节流
+  * 用户快速点击按钮的时候，单位时间内只触发一次
