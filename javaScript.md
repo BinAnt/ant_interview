@@ -84,3 +84,30 @@ setInterval(throttle(fn, 1000), 2000);
   * window的resize的时候，会不断触发这个事件，可以控制在某个时间内只执行一次
 * 节流
   * 用户快速点击按钮的时候，单位时间内只触发一次
+
+#### 第三题：介绍下Set、Map和WeakSet及WeakMap的区别
+
+1. ==Set==是ES6新增的数据结构，它类似于数组，但是成员值都是唯一的，没有重复的。
+2. ==Map==对象保存键值对，并且能够记住键的原始插入顺序。任何值（对象或者原始值）都可以作为一个值或一个键。
+3. ==WeakSet==对象允许你将弱保持对象存储在一个集合中。是一些对象的集合，并且其中每个对象都只能出现一次，在==WeakSet==中是唯一的。
+   * 和Set的区别是：
+     * ==WeakSet==只能是**对象的集合**，而不能是任何类型的任意值。
+4. ==WeakMap==对象是一组键/值对的集合，其中的键是弱引用的，其键必须是对象，而值可以是任意的。
+
+#### 第4题：ES5/ES6的继承除了写法不同之外，还有什么区别
+
+#### 第5题：介绍下模块化发展历程，可以从IIFE、AMD、CMD、CommonJS、UMD、webpack（require.ensure）、ES Module、<script type='module'>这几个角度考虑
+
+#### 第6题：关于const和let声明的变量不在window上
+
+在ES5中规定全局变量和顶层对象的属性是等价的，即var和function声明的全局变量
+
+~~~~js
+var a = 12;
+function f(){};
+
+console.log(window.a); // 12
+console.log(window.f); // f(){}
+~~~~
+
+在ES6中var和function中任然是全局变量，是顶层对象的属性，但是新规定==let==和==const==定义的变量并没有在顶层对象中，只是在块级作用域中
